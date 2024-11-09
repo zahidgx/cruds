@@ -1,7 +1,47 @@
+/* Importar base, componentes y utilidades de Tailwind CSS */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Para ocultar elementos con el atributo [x-cloak] */
 [x-cloak] {
     display: none;
 }
+
+/* Integración con Bootstrap */
+@import url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css');
+
+/* Personalización de botones de Bootstrap con Tailwind */
+@layer components {
+    .btn {
+        @apply inline-block px-4 py-2 font-semibold text-white rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2;
+    }
+
+    /* Botón verde (Bootstrap .btn-success) */
+    .btn-success {
+        @apply bg-green-500 hover:bg-green-600;
+    }
+
+    /* Botón rojo (Bootstrap .btn-danger) */
+    .btn-danger {
+        @apply bg-red-500 hover:bg-red-600;
+    }
+
+    /* Botón azul (Bootstrap .btn-primary) */
+    .btn-primary {
+        @apply bg-blue-500 hover:bg-blue-600;
+    }
+
+    /* Botón de editar - Personalización */
+    .btn-edit {
+        @apply bg-yellow-500 hover:bg-yellow-600 text-white;
+    }
+
+    /* Botón de eliminar - Personalización */
+    .btn-delete {
+        @apply bg-red-600 hover:bg-red-700 text-white;
+    }
+}
+
+/* Agregar más personalizaciones si es necesario */
+

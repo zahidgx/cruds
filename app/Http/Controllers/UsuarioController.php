@@ -10,74 +10,72 @@ class UsuarioController extends Controller
 {
     public function index()
     {
-        $usuarios = User::paginate(10); // Obtener los usuarios
-        return view('usuarios.usuarios', compact('usuarios')); // Retornar la vista
+        $usuarios = User::paginate(2);
+        return view('usuarios.usuarios', compact('usuarios')); 
     }
 
     public function edit($id)
 {
-    $usuario = User::findOrFail($id); // Asegúrate de que User es el modelo correcto
+    $usuario = User::findOrFail($id); 
     return view('usuarios.users-edit', compact('usuario'));
 }
 public function update(Request $request, $id)
 {
-    // Validación de los datos del formulario
+
     $request->validate([
         'name' => 'required|string|max:255',
-        'email' => 'required|string|email|max:255',
-        'password' => 'nullable|string|min:8|confirmed', // Asegúrate de que tenga confirmación si se va a cambiar
+        'email' => 'required|email|unique:users,email,' . $id,
+        'password' => 'nullable|string|min:8|confirmed',
+        'role' => 'required|in:admin,user', 
     ]);
 
-    // Encuentra al usuario por su ID
     $usuario = User::findOrFail($id);
 
-    // Actualiza los atributos del usuario
     $usuario->name = $request->name;
     $usuario->email = $request->email;
 
-    // Si se proporciona una nueva contraseña, actualízala
-    if ($request->filled('password')) {
-        $usuario->password = Hash::make($request->password); // Asegúrate de importar Hash
+    if ($request->password) {
+        $usuario->password = bcrypt($request->password);
     }
 
-    // Guarda los cambios en la base de datos
+    $usuario->role = $request->role;
     $usuario->save();
 
-    // Redirige a la lista de usuarios con un mensaje de éxito
-    return redirect()->route('usuarios.index')->with('success', 'Usuario actualizado exitosamente.');
+    return redirect()->route('usuarios.index')->with('success', 'Usuario actualizado correctamente.');
 }
 
-// Método para mostrar el formulario de creación
+
+
 public function create()
 {
-    return view('usuarios.users-create'); // Asegúrate de que la vista se llama correctamente
+    return view('usuarios.users-create'); 
 }
 
-// Método para almacenar el nuevo usuario
+public function show(string $id)
+    {
+        //
+    }
+
 public function store(Request $request)
 {
-    try {
-        // Validar los datos de entrada
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-        ]);
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:users',
+        'password' => 'required|string|min:8|confirmed',
+        'role' => 'required|in:admin,user',  
+    ]);
 
-        // Crear un nuevo usuario
-        $usuario = new User();
-        $usuario->name = $request->name;
-        $usuario->email = $request->email;
-        $usuario->password = Hash::make($request->password); // Almacenar la contraseña de forma segura
-        $usuario->save();
 
-        return redirect()->route('usuarios.index')->with('success', 'Usuario creado exitosamente.');
+    $usuario = new User();
+    $usuario->name = $request->name;
+    $usuario->email = $request->email;
+    $usuario->password = bcrypt($request->password);
+    $usuario->role = $request->role;  
+    $usuario->save();
 
-    } catch (\Exception $e) {
-        return back()->withErrors(['error' => $e->getMessage()]);
-    }
-    
+    return redirect()->route('usuarios.index')->with('success', 'Usuario creado correctamente.');
 }
+
 public function destroy($id)
 {
     // Encuentra el usuario por su ID y lo elimina

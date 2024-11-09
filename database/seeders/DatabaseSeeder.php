@@ -8,7 +8,9 @@ class DatabaseSeeder extends Seeder
 {
     public function run()
     {
-        $this->call(PostsTableSeeder::class);
+        // Llama al seeder que acabamos de crear
+        $this->call(AdminUserSeeder::class);
     }
+    
 }
 

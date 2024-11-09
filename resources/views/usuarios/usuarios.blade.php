@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                 <div>
-                    <a href="{{ route('usuarios.create') }}">Crear</a>
+                    <a href="{{ route('usuarios.create') }}" class="btn btn-primary mb-3">Crear usuario</a>
                 </div>
 
                 <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
@@ -17,8 +17,9 @@
                         <tr>
                             <th style="padding: 12px; border: 1px solid #ddd;">ID</th>
                             <th style="padding: 12px; border: 1px solid #ddd;">Nombre</th>
-                            <th style="padding: 12px; border: 1px solid #ddd;">Correo electrónico</th>
-                            <th style="padding: 12px; border: 1px solid #ddd;">Contraseña</th> <!-- Cambiado aquí -->
+                            <th style="padding: 12px; border: 1px solid #ddd;"> electrónico</th>
+                            <th style="padding: 12px; border: 1px solid #ddd;">Contraseña</th> 
+                            <th style="padding: 12px; border: 1px solid #ddd;">Rol</th> 
                             <th style="padding: 12px; border: 1px solid #ddd;">Acciones</th>
                         </tr>
                     </thead>
@@ -27,11 +28,14 @@
                         <tr style="background-color: #f9f9f9;">
                             <td style="padding: 12px; border: 1px solid #ddd;">{{ $usuario->id }}</td>
                             <td style="padding: 12px; border: 1px solid #ddd;">{{ $usuario->name }}</td>
-                            <td style="padding: 12px; border: 1px solid #ddd;">{{ $usuario->email }}</td> 
-                            <td style="padding: 12px; border: 1px solid #ddd;">******</td> <!-- Mostrando texto genérico -->
+                            <td style="padding: 12px; border: 1px solid #ddd;">{{ $usuario->email }}</td>
+                            <td style="padding: 12px; border: 1px solid #ddd;">******</td> 
+                            <td style="padding: 12px; border: 1px solid #ddd;">{{ $usuario->role ?? 'No asignado' }}</td>
                             <td style="padding: 12px; border: 1px solid #ddd;">
-                                <a href="{{ route('usuarios.edit', $usuario->id) }}" style="color: #4CAF50; text-decoration: none;">Editar</a>
-                                <button onclick="confirmDelete({{ $usuario->id }})" style="background-color: #f44336; color: white; border: none; padding: 5px 10px; cursor: pointer;">Eliminar</button>
+                               
+                                <a href="{{ route('usuarios.edit', $usuario->id) }}" class="btn btn-success btn-sm">Editar</a>
+
+                                <button onclick="confirmDelete({{ $usuario->id }})" class="btn btn-danger btn-sm">Eliminar</button>
                             </td>
                         </tr>
                         @endforeach
@@ -46,24 +50,36 @@
     </div>
 </x-app-layout>
 
-<script src="https://cdn.jsdelivr.net/npm/alertifyjs/build/alertify.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs/build/alertify.css"/>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
     function confirmDelete(id) {
-        alertify.confirm("¿Estás seguro de que quieres eliminar este usuario?", function (e) {
-            if (e) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "¡Esta acción no se puede deshacer!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
                 let form = document.createElement('form');
                 form.method = 'POST';
                 form.action = `/usuarios/${id}`;
                 form.innerHTML = `@csrf @method('DELETE')`;
                 document.body.appendChild(form);
                 form.submit();
-            } else {
-                return false;
             }
         });
     }
 </script>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+
+
+
+
 
 

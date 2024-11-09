@@ -1,27 +1,31 @@
-<form method="POST" action="{{ route('students.store') }}" style="max-width: 400px; margin: 20px auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9;">
+<form method="POST" action="{{ route('students.store') }}" class="container p-5 border border-gray-300 rounded bg-light">
     @csrf
-    <div style="margin-bottom: 15px;">
-        <label for="name" style="display: block; margin-bottom: 5px;">Nombre del producto</label>
-        <input id="name" name="name" type="text" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+
+    <div class="mb-3">
+        <label for="name" class="form-label">Nombre del producto</label>
+        <input id="name" name="name" type="text" required class="form-control">
     </div>
 
-    <div style="margin-bottom: 15px;">
-        <label for="descripcion" style="display: block; margin-bottom: 5px;">Descripcion</label>
-        <textarea id="descripcion" name="descripcion" rows="4" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+    <div class="mb-3">
+        <label for="descripcion" class="form-label">Descripción</label>
+        <textarea id="descripcion" name="descripcion" rows="4" class="form-control"></textarea>
     </div>
 
-    <div style="margin-bottom: 15px;">
-        <label for="precio" style="display: block; margin-bottom: 5px;">Precio</label>
-        <input id="precio" name="precio" type="text" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+    <div class="mb-3">
+        <label for="precio" class="form-label">Precio</label>
+        <input id="precio" name="precio" type="text" required class="form-control">
     </div>
 
-    <div style="margin-bottom: 15px;">
-        <label for="stock" style="display: block; margin-bottom: 5px;">Stock</label>
-        <input id="stock" name="stock" type="number" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+    <div class="mb-3">
+        <label for="stock" class="form-label">Stock</label>
+        <input id="stock" name="stock" type="number" required class="form-control">
     </div>
 
-    <button type="submit" style="background-color: #4CAF50; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer;">Save</button>
-    <a href="{{ route('students.index') }}" style="margin-left: 10px; color: #f44336; text-decoration: none;">Cancel</a>
+    <button type="submit" class="btn btn-success">Save</button>
+    <a href="{{ route('students.index') }}" class="btn btn-danger ms-2">Cancel</a>
 </form>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
 
 

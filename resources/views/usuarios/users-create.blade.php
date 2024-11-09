@@ -8,33 +8,55 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
-                <form method="POST" action="{{ route('usuarios.store') }}" style="max-width: 400px; margin: 20px auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9;">
+                <!-- Formulario con el diseño proporcionado -->
+                <form method="POST" action="{{ route('usuarios.store') }}" class="container p-5 border border-gray-300 rounded bg-light">
                     @csrf
-                    <div style="margin-bottom: 15px;">
-                        <label for="name" style="display: block; margin-bottom: 5px;">Nombre</label>
-                        <input id="name" name="name" type="text" value="{{ old('name') }}" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+
+                    <!-- Nombre del usuario -->
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Nombre</label>
+                        <input id="name" name="name" type="text" value="{{ old('name') }}" required class="form-control">
                     </div>
 
-                    <div style="margin-bottom: 15px;">
-                        <label for="email" style="display: block; margin-bottom: 5px;">Correo electrónico</label>
-                        <input id="email" name="email" type="email" value="{{ old('email') }}" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                    <!-- Correo electrónico -->
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Correo electrónico</label>
+                        <input id="email" name="email" type="email" value="{{ old('email') }}" required class="form-control">
                     </div>
 
-                    <div style="margin-bottom: 15px;">
-                        <label for="password" style="display: block; margin-bottom: 5px;">Contraseña</label>
-                        <input id="password" name="password" type="password" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                    <!-- Contraseña -->
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Contraseña</label>
+                        <input id="password" name="password" type="password" required class="form-control">
                     </div>
 
-                    <div style="margin-bottom: 15px;">
-                        <label for="password_confirmation" style="display: block; margin-bottom: 5px;">Confirmar Contraseña</label>
-                        <input id="password_confirmation" name="password_confirmation" type="password" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                    <!-- Confirmar Contraseña -->
+                    <div class="mb-3">
+                        <label for="password_confirmation" class="form-label">Confirmar Contraseña</label>
+                        <input id="password_confirmation" name="password_confirmation" type="password" required class="form-control">
                     </div>
 
-                    <button type="submit" style="background-color: #4CAF50; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer;">Crear Usuario</button>
-                    <a href="{{ route('usuarios.index') }}" style="margin-left: 10px; color: #f44336; text-decoration: none;">Cancelar</a>
+                    <!-- Selección de Rol -->
+                    <div class="mb-3">
+                        <label for="role" class="form-label">Rol</label>
+                        <select id="role" name="role" required class="form-control">
+                            <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
+                            <option value="user" {{ old('role') == 'user' ? 'selected' : '' }}>Usuario Normal</option>
+                        </select>
+                    </div>
+
+                    <!-- Botones de acción -->
+                    <button type="submit" class="btn btn-success">Crear Usuario</button>
+                    <a href="{{ route('usuarios.index') }}" class="btn btn-danger ms-2">Cancelar</a>
                 </form>
             </div>
         </div>
     </div>
 </x-app-layout>
+
+<!-- Importar Bootstrap CSS desde CDN -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+
 

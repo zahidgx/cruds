@@ -18,6 +18,12 @@ class PedidoController extends Controller
         return view('pedidos.pedidos-create'); // Vista para crear un nuevo pedido
     }
 
+    public function show($id)
+    {
+        $usuario = Usuario::findOrFail($id);  // Busca el usuario por ID o falla
+        return view('usuarios.show', compact('usuario'));  // Devuelve la vista 'usuarios.show' pasando el usuario
+    }
+
     public function store(Request $request)
     {
         // Validación de los datos de entrada

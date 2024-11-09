@@ -9,37 +9,46 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
 
-                <form method="POST" action="{{ route('students.update', $student->id) }}" style="max-width: 400px; margin: 20px auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9;">
+                <form method="POST" action="{{ route('students.update', $student->id) }}" class="container p-5 border border-gray-300 rounded bg-light">
                     @csrf
                     @method('PUT')
                     
-                    <div style="margin-bottom: 15px;">
-                        <label for="name" style="display: block; margin-bottom: 5px;">Nombre del producto</label>
-                        <input id="name" name="name" type="text" value="{{ old('name', $student->name) }}" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                    <!-- Nombre del producto -->
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Nombre del producto</label>
+                        <input id="name" name="name" type="text" value="{{ old('name', $student->name) }}" required class="form-control">
                     </div>
 
-                    <div style="margin-bottom: 15px;">
-                        <label for="descripcion" style="display: block; margin-bottom: 5px;">Descripcion</label>
-                        <textarea id="descripcion" name="descripcion" rows="4" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">{{ old('descripcion', $student->descripcion) }}</textarea>
+                    <!-- Descripción -->
+                    <div class="mb-3">
+                        <label for="descripcion" class="form-label">Descripcion</label>
+                        <textarea id="descripcion" name="descripcion" rows="4" class="form-control">{{ old('descripcion', $student->descripcion) }}</textarea>
                     </div>
                 
-                    <div style="margin-bottom: 15px;">
-                        <label for="precio" style="display: block; margin-bottom: 5px;">Precio</label>
-                        <input id="precio" name="precio" type="text" value="{{ old('precio', $student->precio) }}" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                    <!-- Precio -->
+                    <div class="mb-3">
+                        <label for="precio" class="form-label">Precio</label>
+                        <input id="precio" name="precio" type="text" value="{{ old('precio', $student->precio) }}" required class="form-control">
                     </div>
 
-                    <div style="margin-bottom: 15px;">
-                        <label for="stock" style="display: block; margin-bottom: 5px;">Stock</label>
-                        <input id="stock" name="stock" type="number" value="{{ old('stock', $student->stock) }}" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                    <!-- Stock -->
+                    <div class="mb-3">
+                        <label for="stock" class="form-label">Stock</label>
+                        <input id="stock" name="stock" type="number" value="{{ old('stock', $student->stock) }}" required class="form-control">
                     </div>
                 
-                    <button type="submit" style="background-color: #4CAF50; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer;">Update</button>
-                    <a href="{{ route('students.index') }}" style="margin-left: 10px; color: #f44336; text-decoration: none;">Cancel</a>
+                    <!-- Botones de acción -->
+                    <button type="submit" class="btn btn-success">Update</button>
+                    <a href="{{ route('students.index') }}" class="btn btn-danger ms-2">Cancel</a>
                 </form>
                 
             </div>
         </div>
     </div>
 </x-app-layout>
+
+<!-- Importar Bootstrap CSS desde CDN -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
 
 

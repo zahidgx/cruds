@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                 <div>
-                    <a href="{{ route('pedidos.create') }}">Crear Pedido</a>
+                    <a href="{{ route('pedidos.create') }}" class="btn btn-primary mb-3">Agregar pedido</a>
                 </div>
 
                 <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
@@ -32,8 +32,9 @@
                             <td style="padding: 12px; border: 1px solid #ddd;">{{ $pedido->ubicacion }}</td>
                             <td style="padding: 12px; border: 1px solid #ddd;">{{ $pedido->enviado ? 'Sí' : 'No' }}</td>
                             <td style="padding: 12px; border: 1px solid #ddd;">
-                                <a href="{{ route('pedidos.edit', $pedido->id) }}" style="color: #4CAF50; text-decoration: none;">Editar</a>
-                                <button onclick="confirmDelete({{ $pedido->id }})" style="background-color: #f44336; color: white; border: none; padding: 5px 10px; cursor: pointer;">Eliminar</button>
+                                <a href="{{ route('pedidos.edit', $pedido->id) }}" class="btn btn-success btn-sm">Editar</a>
+
+                                <button onclick="confirmDelete({{ $pedido->id }})" class="btn btn-danger btn-sm">Eliminar</button>
                             </td>
                         </tr>
                         @endforeach
@@ -41,7 +42,7 @@
                 </table>
 
                 <div class="pagination">
-                    {{ $pedidos->links() }} <!-- Esto ahora funcionará -->
+                    {{ $pedidos->links() }}
                 </div>
                 
             </div>
@@ -49,25 +50,32 @@
     </div>
 </x-app-layout>
 
-<script src="https://cdn.jsdelivr.net/npm/alertifyjs/build/alertify.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs/build/alertify.css"/>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
     function confirmDelete(id) {
-        alertify.confirm("¿Estás seguro de que quieres eliminar este pedido?", function (e) {
-            if (e) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "¡Esta acción no se puede deshacer!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
                 let form = document.createElement('form');
                 form.method = 'POST';
-                form.action = `/pedidos/${id}`; // Cambia a la ruta correcta para los pedidos
-                form.innerHTML = `<input type='hidden' name='_token' value='{{ csrf_token() }}'>
-                                  <input type='hidden' name='_method' value='DELETE'>`;
+                form.action = `/pedidos/${id}`;
+                form.innerHTML = `@csrf @method('DELETE')`;
                 document.body.appendChild(form);
                 form.submit();
-            } else {
-                return false;
             }
         });
     }
 </script>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
 
 

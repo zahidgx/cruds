@@ -9,9 +9,10 @@ class StudentController extends Controller
 {
     public function index()
     {
-        $students = Student::paginate(3); 
+        $students = Student::paginate(3);  
         return view('students.index', compact('students'));
     }
+    
 
     public function create()
     {

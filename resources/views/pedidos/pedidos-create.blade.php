@@ -8,37 +8,47 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
-                <form method="POST" action="{{ route('pedidos.store') }}" style="max-width: 400px; margin: 20px auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9;">
+                <!-- Formulario con diseño de Bootstrap -->
+                <form method="POST" action="{{ route('pedidos.store') }}" class="container p-5 border border-gray-300 rounded bg-light">
                     @csrf
 
-                    <div style="margin-bottom: 15px;">
-                        <label for="nombre_cliente" style="display: block; margin-bottom: 5px;">Nombre del Cliente</label>
-                        <input id="nombre_cliente" name="nombre_cliente" type="text" value="{{ old('nombre_cliente') }}" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                    <!-- Nombre del Cliente -->
+                    <div class="mb-3">
+                        <label for="nombre_cliente" class="form-label">Nombre del Cliente</label>
+                        <input id="nombre_cliente" name="nombre_cliente" type="text" value="{{ old('nombre_cliente') }}" required class="form-control">
                     </div>
 
-                    <div style="margin-bottom: 15px;">
-                        <label for="descripcion" style="display: block; margin-bottom: 5px;">Descripción</label>
-                        <textarea id="descripcion" name="descripcion" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">{{ old('descripcion') }}</textarea>
+                    <!-- Descripción -->
+                    <div class="mb-3">
+                        <label for="descripcion" class="form-label">Descripción</label>
+                        <textarea id="descripcion" name="descripcion" required class="form-control">{{ old('descripcion') }}</textarea>
                     </div>
 
-                    <div style="margin-bottom: 15px;">
-                        <label for="ubicacion" style="display: block; margin-bottom: 5px;">Ubicación</label>
-                        <input id="ubicacion" name="ubicacion" type="text" value="{{ old('ubicacion') }}" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                    <!-- Ubicación -->
+                    <div class="mb-3">
+                        <label for="ubicacion" class="form-label">Ubicación</label>
+                        <input id="ubicacion" name="ubicacion" type="text" value="{{ old('ubicacion') }}" required class="form-control">
                     </div>
 
-                    <div style="margin-bottom: 15px;">
-                        <label for="enviado" style="display: block; margin-bottom: 5px;">¿Enviado?</label>
-                        <select id="enviado" name="enviado" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
-                            <option value="0">No</option>
-                            <option value="1">Sí</option>
+                    <!-- ¿Enviado? -->
+                    <div class="mb-3">
+                        <label for="enviado" class="form-label">¿Enviado?</label>
+                        <select id="enviado" name="enviado" required class="form-control">
+                            <option value="0" {{ old('enviado') == 0 ? 'selected' : '' }}>No</option>
+                            <option value="1" {{ old('enviado') == 1 ? 'selected' : '' }}>Sí</option>
                         </select>
                     </div>
 
-                    <button type="submit" style="background-color: #4CAF50; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer;">Crear Pedido</button>
-                    <a href="{{ route('pedidos.index') }}" style="margin-left: 10px; color: #f44336; text-decoration: none;">Cancelar</a>
+                    <!-- Botones de acción -->
+                    <button type="submit" class="btn btn-success">Crear Pedido</button>
+                    <a href="{{ route('pedidos.index') }}" class="btn btn-danger ms-2">Cancelar</a>
                 </form>
             </div>
         </div>
     </div>
 </x-app-layout>
+
+<!-- Importar Bootstrap CSS desde CDN -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
 
